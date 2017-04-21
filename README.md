@@ -6,7 +6,7 @@ on how to make the requests. Got my Kasa credentials from fiddler.
 
 # Getting it set up
 ## Configuration
-fill out config.py. requires these fields:
+fill out `config.py`. requires these fields:
 ```
 KASA_TOKEN = <from the kasa app>
 KASA_DEVICE_ID = <from the kasa app>
@@ -25,9 +25,9 @@ IOT_BUTTON_SERIAL_NUMBER = "G0XXXX020XXXXUQR"
 
 ## install python
 * create a virtualenv with python3.6 runtime
-** mkvirtualenv -p python3.6 alexa
+  * `mkvirtualenv -p python3.6 alexa`
 * install python dependencies with `setup.sh`
-** we install them in the local directory so that we can upload them to lambda
+  * we install them in the local directory so that we can upload them to lambda
 
 
 ## upload to lambda
