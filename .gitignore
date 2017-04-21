@@ -1,6 +1,10 @@
 # credentials
 config.py
 
+# compiled binaries
+requests*
+aws_package.zip
+
 ### the rest is grabbed from github's helpful python .gitignore
 
 # Byte-compiled / optimized / DLL files
