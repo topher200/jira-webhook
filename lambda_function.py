@@ -19,7 +19,7 @@ def lambda_handler(event, _):
     payload = {
         'issue_key': key
     }
-    res = requests.post(API_REQUEST_URL, json=payload)
+    res = requests.put(API_REQUEST_URL, json=payload)
     if res.status_code == 200:
         print('Successfully parsed "%s"' % key)
     else:
