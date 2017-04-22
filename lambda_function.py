@@ -5,30 +5,22 @@ import requests
 import config
 
 
-OFF_STATE = "{\"system\":{\"set_relay_state\":{\"state\":0}}}"
-ON_STATE = "{\"system\":{\"set_relay_state\":{\"state\":1}}}"
-GET_SYS_INFO = "{\"system\":{\"get_sysinfo\":{}}}"
+print('Loading function')
+
+API_HOST_URL = config.API_HOST_URL
+API_ENDPOINT = config.API_ENDPOINT
+API_REQUEST_URL = API_HOST_URL + API_ENDPOINT
 
 
 def lambda_handler(event, _):
     print("Received event: " + json.dumps(event, indent=2))
 
-    if event['clickType'] == 'SINGLE':
-        state = OFF_STATE
-    if event['clickType'] == 'DOUBLE':
-        state = ON_STATE
-
-    url = 'https://%s/?token=%s' % (config.KASA_URL, config.KASA_TOKEN)
+    key = json.loads(event['body'])['issue']['key']
     payload = {
-        'method': 'passthrough',
-        'params': {
-            'deviceId': config.KASA_DEVICE_ID,
-            'requestData': state
-        }
+        'issue_key': key
     }
-
-    print('making request to %s with %s' % (url, payload))
-    res = requests.post(url, json=payload)
-    res.raise_for_status()
-
-    print('response: "%s"' % res.json())
+    res = requests.post(API_REQUEST_URL, json=payload)
+    if res.status_code == 200:
+        print('Successfully parsed "%s"' % key)
+    else:
+        print('request received %s. data: "%s"' % (res.status_code, payload))
